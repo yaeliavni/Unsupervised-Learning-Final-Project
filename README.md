@@ -73,12 +73,12 @@ pip install pandas numpy matplotlib seaborn scikit-learn umap-learn hdbscan scip
 
 ## How to Run
 
-1. Set the correct `DATA_PATH` inside each script to point to your `parkinsons_disease_data.csv`.
+1. Set the correct `DATA_PATH` inside each script to point to your `parkinsons_disease_data.csv`, unless you activate it via git.
 2. Execute the desired script:
 ```bash
 python full_analysis_clustering.py
 ```
-3. Plots and summary tables will appear or be saved to the `Results/` folder.
+3. Plots and summary tables will appear or be saved to the `Results/` folder and will be plotted on the screen live when you run the script.
 
 ---
 
@@ -100,7 +100,7 @@ The pipeline emphasizes **reproducibility**, **clinical relevance**, and **metho
 
 ## 📎 Link to Full Report / Visualizations (Overleaf)
 
-[View full project report (Overleaf)](https://www.overleaf.com)  
+[View full project report (Overleaf)]([https://www.overleaf.com](https://www.overleaf.com/read/kdmhkmcgqmnh#9204a1))  
 *(Replace with your actual Overleaf link if needed)*
 
 ---
