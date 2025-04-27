@@ -114,7 +114,7 @@ def bootstrap_stability_check(df_scaled, n_iterations=20):
     for i in range(n_iterations):
         X_sample = resample(df_scaled, replace=True, n_samples=int(0.8 * len(df_scaled)))
         X_reduced_sample = reduce_dimensions(X_sample)
-        labels_sample = cluster_data(X_reduced_sample, method='hdbscan', hdbscan_min_cluster_size=10)
+        labels_sample = cluster_data(X_reduced_sample)
         n_clusters = len(set(labels_sample)) - (1 if -1 in labels_sample else 0)
         cluster_counts.append(n_clusters)
 
@@ -259,4 +259,4 @@ def full_analysis(selected_features_only, include_stroke, label_suffix):
 # Main pipeline
 if __name__ == "__main__":
     print("UMAP and HDBscan")
-    full_analysis(selected_features_only=True, include_stroke=True, label_suffix="Clinical + Stroke")
+    full_analysis(selected_features_only=True, include_stroke=True, label_suffix="HDBSCAN Clustering")
