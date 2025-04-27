@@ -18,7 +18,7 @@ import warnings
 warnings.filterwarnings("ignore")
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
-DATA_PATH = r"C:\\Users\\avni1\\Documents\\שנה ג\\unsupervised learning\\Final Data For Project\\parkinsons_disease_data.csv"
+DATA_PATH = "data/parkinsons_disease_data.csv"
 RESULTS_DIR = "Results"
 
 os.makedirs(RESULTS_DIR, exist_ok=True)
