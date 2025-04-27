@@ -104,5 +104,5 @@ The pipeline emphasizes **reproducibility**, **clinical relevance**, and **metho
 
 ## 🌐 Related Links
 
-- [GitHub Repository]([[https://github.com/YourUsername/YourRepositoryName](https://github.com/yaeliavni/Unsupervised-Learning-Final-Project)] — Full code and data.
+- [GitHub Repository]([[yael avni](https://github.com/yaeliavni/Unsupervised-Learning-Final-Project)] — Full code and data.
 - [r/unsupervised](https://www.reddit.com/r/unsupervised/) — Community about unsupervised learning discussions and projects.
