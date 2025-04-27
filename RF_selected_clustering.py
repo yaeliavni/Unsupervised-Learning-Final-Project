@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore")
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
-DATA_PATH = r"C:\\Users\\avni1\\Documents\\שנה ג\\unsupervised learning\\Final Data For Project\\parkinsons_disease_data.csv"
+DATA_PATH = "data/parkinsons_disease_data.csv"
 
 def load_and_preprocess(selected_features_only=False, include_stroke=True):
     df = pd.read_csv(DATA_PATH)
