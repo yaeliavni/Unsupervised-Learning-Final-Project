@@ -101,3 +101,8 @@ The pipeline emphasizes **reproducibility**, **clinical relevance**, and **metho
 
 [View full project report (Overleaf)](https://www.overleaf.com/read/kdmhkmcgqmnh#9204a1)
 ---
+
+## 🌐 Related Links
+
+- [GitHub Repository](https://github.com/YourUsername/YourRepositoryName](https://github.com/yaeliavni/Unsupervised-Learning-Final-Project)) — Full code and data.
+- [r/unsupervised](https://www.reddit.com/r/unsupervised/) — Community about unsupervised learning discussions and projects.
