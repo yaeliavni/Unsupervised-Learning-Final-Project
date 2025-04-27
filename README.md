@@ -73,8 +73,8 @@ pip install pandas numpy matplotlib seaborn scikit-learn umap-learn hdbscan scip
 
 ## How to Run
 
-1. Set the correct `DATA_PATH` inside each script to point to your `parkinsons_disease_data.csv`, unless you activate it via git.
-2. Execute the desired script:
+1. Make sure the data/parkinsons_disease_data.csv file exists
+2. 2. Execute the desired script:
 ```bash
 python full_analysis_clustering.py
 ```
@@ -97,10 +97,7 @@ This project shows how unsupervised and self-supervised learning can uncover int
 The pipeline emphasizes **reproducibility**, **clinical relevance**, and **methodological robustness** through multiple validation steps.
 
 ---
-
 ## 📎 Link to Full Report / Visualizations (Overleaf)
 
-[View full project report (Overleaf)]([https://www.overleaf.com](https://www.overleaf.com/read/kdmhkmcgqmnh#9204a1))  
-*(Replace with your actual Overleaf link if needed)*
-
+[View full project report (Overleaf)](https://www.overleaf.com/read/kdmhkmcgqmnh#9204a1)
 ---
