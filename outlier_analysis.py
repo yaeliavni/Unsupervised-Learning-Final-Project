@@ -22,38 +22,29 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
-# --- File Path ---
-DATA_PATH = r"C:\\Users\\avni1\\Documents\\שנה ג\\unsupervised learning\\Final Data For Project\\parkinsons_disease_data.csv"
+DATA_PATH = "data/parkinsons_disease_data.csv"
 
-# --- Load Data ---
 df = pd.read_csv(DATA_PATH)
 
-# --- Step 0: HDBSCAN Clustering Automatically ---
 print("Running HDBSCAN Clustering to create 'cluster' labels...")
 features = df.select_dtypes(include=[np.number]).columns
 
-# Scale the data
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(df[features])
 
-# Perform HDBSCAN Clustering
 hdb = hdbscan.HDBSCAN(min_cluster_size=10, min_samples=5, metric='euclidean')
 cluster_labels = hdb.fit_predict(X_scaled)
 
-# Add Cluster Labels to the DataFrame
 df['cluster'] = cluster_labels
 
-# --- Separate Noise Points ---
 df_noise = df[df['cluster'] == -1]
 df_clustered = df[df['cluster'] != -1]
 
 print(f"Number of Noise Points: {len(df_noise)}")
 print(f"Number of Clustered Points: {len(df_clustered)}")
 
-# --- Focus Only on Numerical Features (excluding 'cluster')
 features = df.select_dtypes(include=[np.number]).drop(columns=['cluster']).columns
 
-# --- Step 1: Compare Feature Distributions (Boxplots) ---
 for feature in features:
     plt.figure(figsize=(8, 4))
     sns.boxplot(data=df, x=(df['cluster'] == -1), y=feature)
@@ -63,7 +54,6 @@ for feature in features:
     plt.grid(True)
     plt.show()
 
-# --- Step 2: Statistical Testing Feature-by-Feature ---
 print("\n=== Statistical Testing (Noise vs Clustered) ===")
 results = []
 for feature in features:
@@ -73,14 +63,12 @@ for feature in features:
         stat, p_val = mannwhitneyu(noise_vals, cluster_vals, alternative='two-sided')
         results.append((feature, p_val))
 
-# Sort by p-value
 results_sorted = sorted(results, key=lambda x: x[1])
 
 print("\nFeature | Mann-Whitney p-value (Noise vs Clustered)")
 for feature, p_val in results_sorted:
     print(f"{feature}: p = {p_val:.4e}")
 
-# --- Step 3: UMAP Visualization ---
 print("\nGenerating UMAP Plot...")
 X = df[features].fillna(0)
 X_scaled = scaler.fit_transform(X)  # re-scaling after dropping 'cluster'
@@ -96,13 +84,11 @@ plt.ylabel('UMAP2')
 plt.grid(True)
 plt.show()
 
-# --- Step 4: Outlier Detection Only on Noise Points ---
 print("\nRunning Outlier Detection inside Noise Points...")
 
 X_noise = df_noise[features].fillna(0)
 X_noise_scaled = scaler.transform(X_noise)
 
-# 1. Isolation Forest
 iso = IsolationForest(contamination=0.1, random_state=42)
 iso_outliers = iso.fit_predict(X_noise_scaled)
 
@@ -114,12 +100,10 @@ lof_outliers = lof.fit_predict(X_noise_scaled)
 svm = OneClassSVM(kernel='rbf', nu=0.1)
 svm_outliers = svm.fit_predict(X_noise_scaled)
 
-# --- Print Outlier Detection Summary ---
 print(f"Isolation Forest flagged {np.sum(iso_outliers == -1)} noise points as outliers.")
 print(f"Local Outlier Factor flagged {np.sum(lof_outliers == -1)} noise points as outliers.")
 print(f"One-Class SVM flagged {np.sum(svm_outliers == -1)} noise points as outliers.")
 
-# --- Visualize Outliers inside Noise (optional) ---
 pca = PCA(n_components=2, random_state=42)
 X_noise_pca = pca.fit_transform(X_noise_scaled)
 
@@ -131,24 +115,20 @@ plt.ylabel('PC2')
 plt.grid(True)
 plt.show()
 
-# --- Step 5: EXTRA Unsupervised Learning based Outlier Scoring ---
 print("\nRunning Unsupervised Model: Learning Normal Structure from Clustered Points...")
 
-# Train IsolationForest on clustered points only
 X_clustered = df_clustered[features].fillna(0)
 X_clustered_scaled = scaler.transform(X_clustered)
 
 unsupervised_model = IsolationForest(contamination=0.1, random_state=42)
 unsupervised_model.fit(X_clustered_scaled)
 
-# Score noise points
 noise_scores = unsupervised_model.decision_function(X_noise_scaled)
 
 # Decision function: higher = more normal, lower = more anomalous
 print("\nNoise Points Outlier Scores (Higher = more normal, Lower = more anomalous):")
 print(noise_scores)
 
-# Plot Noise Scores
 plt.figure(figsize=(8, 4))
 sns.histplot(noise_scores, kde=True, bins=30)
 plt.title('Outlier Scores of Noise Points (Learned from Clustered Patients)')
@@ -157,7 +137,6 @@ plt.ylabel('Count')
 plt.grid(True)
 plt.show()
 
-# Optional: print top 10 most "abnormal" noise points
 most_abnormal_idx = np.argsort(noise_scores)[:10]
 print("\nTop 10 Most Abnormal Noise Points (Indices):")
 print(df_noise.iloc[most_abnormal_idx])
